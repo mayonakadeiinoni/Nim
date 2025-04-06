@@ -22,6 +22,9 @@ https://magazine.techacademy.jp/magazine/30599
     - pre-commit 
      - ちょっと詰まった．pip install pre-commitしても一度deactivateしないとパスが通らなかった．
      - .pre-commit-config.yamlが必要
+
+- vim
+   - git commitで長い解説を書くにはvimエディタを使う必要がある
  
 ##勉強したコマンド
 ### git

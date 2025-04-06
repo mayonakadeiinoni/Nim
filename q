@@ -1,0 +1,57 @@
+
+plyaerのHumaplayerのバグをとった
+
+
+C
+:wq
+i:wq
+xplspgfv
+
+:wq
+i:wq
+:wq	
+
+iiいii:wq
+
+:wq
+:
+:
+wq
+B
+
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+hcejmldpfewkpofe
+具体的はに
+
+ Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# ブランチ player
+# コミット予定の変更点:
+#	modified:   .gitignore
+#	modified:   .pre-commit-config.yaml
+#	modified:   README.md
+#	modified:   script/Game.py
+#	modified:   script/Player.py
+#	deleted:    script/__pycache__/Nim.cpython-310-pytest-8.3.5.pyc
+#	deleted:    script/__pycache__/Nim.cpython-310.pyc
+#	deleted:    script/__pycache__/Player.cpython-310.pyc
+#	deleted:    script/__pycache__/Player.cpython-38.pyc
+#	deleted:    script/__pycache__/__init__.cpython-310.pyc
+#	modified:   script/tests/__pycache__/test_player.cpython-310-pytest-8.3.5.pyc
+#	modified:   script/tests/test_player.py
+#

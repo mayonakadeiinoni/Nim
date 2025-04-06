@@ -19,22 +19,37 @@ class NimGame:
         for index, mount in enumerate(self.mounts):
             print(f"山：{index}の残り：{mount}")
 
+    def MountAssert(self, index, amount):
+
+        if not (0 <= index <= len(self.mounts)):
+            print("山の番号に入ってないです")
+            return True
+        elif not (0 < amount <= self.mounts[index]):
+            print("該当の山の量を超えてます．")
+            return True
+        return False
+
+    def Opening(self):
+        print("########################GAMESTART####################")
+
     def Play(self):
-        count = 0
+        turn = 0
+        self.Opening()
         self.MountDisplay()
         while (True):
-            if count == 0:
-                index, amount = self.player1.select_move(self.mounts)
-            else:
-                index, amount = self.player2.select_move(self.mounts)
+            current_player = self.player1 if turn == 0 else self.player2
+            print(f"プレイヤー：{current_player.name}\n")
+            index, amount = current_player.select_move(self.mounts)
 
+            if self.MountAssert(index, amount):
+                continue
             self.mounts[index] -= amount
             self.MountDisplay()
             if self.isGameEnd():
-                print(f"プレイヤー：{count}が勝ちです．")
+                print(f"プレイヤー：{current_player.name}が勝ちです．")
                 break
-            count += 1
-            count %= 2
+            turn += 1
+            turn %= 2
 
 
 if __name__ == "__main__":

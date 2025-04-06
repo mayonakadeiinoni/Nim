@@ -27,9 +27,21 @@ class HumanPlayer(Player):
     """
 
     def select_move(self, mount):
-        index = int(input("どの山からとるか"))
-        amount = int(input("山からとる量"))
-        return index, amount
+        while (True):
+            try:
+                index = int(input("どの山からとるか"))
+            except ValueError:
+                print("数字を入力しなさい")
+                continue
+            break
+        while (True):
+            try:
+                amount = int(input("山からとる量"))
+            except ValueError:
+                print("数字を入力しなさい")
+                continue
+
+            return index, amount
 
 
 class ComputerPlayer(Player):

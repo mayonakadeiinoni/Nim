@@ -19,6 +19,16 @@ def test_human_player_select_move():
         assert index == 1
         assert amount == 3
 
+
+def test_human_player_select_move_invalid():
+    player = HumanPlayer("Test")
+    with patch("builtins.input", side_effect=["1A", "こんにちわ", "1", "HFEa", "3"]):
+        index, amount = player.select_move([3, 4, 5])
+        print(index)
+        print(amount)
+        assert index == 1
+        assert amount == 3
+
 # ComputerPlayerのselect_moveのテスト（有効な山を選ぶか）
 
 

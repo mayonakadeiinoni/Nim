@@ -6,4 +6,4 @@ repos:
         entry: pytest script/tests/
         pass_filenames: false
         language: system
-        stages: [commit]
+        stages: [pre-commit]
