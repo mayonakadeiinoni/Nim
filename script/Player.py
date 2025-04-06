@@ -46,4 +46,6 @@ class ComputerPlayer(Player):
         valid_indexs = [i for i, pile in enumerate(mount) if pile > 0]
         index = random.choice(valid_indexs)
         amount = random.randint(1, mount[index])
+        print(f"\n\n選んだ番号：{index}")
+        print(f"山の量：{amount}")
         return index, amount
