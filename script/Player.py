@@ -44,7 +44,6 @@ class ComputerPlayer(Player):
     def select_move(self, mount):
         # まだ操作は未定．
         valid_indexs = [i for i, pile in enumerate(mount) if pile > 0]
-
-        index = int(0)
-        amount = int(0)
+        index = random.choice(valid_indexs)
+        amount = random.randint(1, mount[index])
         return index, amount

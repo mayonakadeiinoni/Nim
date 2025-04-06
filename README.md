@@ -15,6 +15,14 @@ https://magazine.techacademy.jp/magazine/30599
 - 自動フォーマッティング　autopepe8とか
  vscodeの機能でできないか？
 　いろいろ試してようやく自動フォーマッティングできた!!
+
+- test
+    - ツール: unittest / pytest  
+    - 実行方法: `python -m unittest`  
+    - pre-commit 
+     - ちょっと詰まった．pip install pre-commitしても一度deactivateしないとパスが通らなかった．
+     - .pre-commit-config.yamlが必要
+ 
 ##勉強したコマンド
 ### git
  #### reset系
