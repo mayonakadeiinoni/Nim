@@ -31,6 +31,8 @@ class NimGame:
 
     def Opening(self):
         print("########################GAMESTART####################")
+        print("これはNimゲームです．\n各プレイヤーは山の任意の番号の任意の量を交互に取ります．")
+        print("先にすべての山をゼロにしてしまったプレイヤーが負けです!!")
 
     def Play(self):
         turn = 0

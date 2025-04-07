@@ -16,6 +16,10 @@ class Player:
         raise NotImplementedError(
             "This method should be overridden by subclasses")
 
+    def turn_order(self):
+        raise NotImplementedError(
+            "This method should be overridden by subclasses")
+
 
 class HumanPlayer(Player):
 
@@ -25,6 +29,11 @@ class HumanPlayer(Player):
     Attributes:
         name (str): プレイヤーを表す名前(継承)
     """
+
+    def __init__(self, name, turn=None):
+        self.name = name
+        super().__init__(name)
+        self.turn = turn
 
     def select_move(self, mount):
         while (True):
@@ -53,11 +62,16 @@ class ComputerPlayer(Player):
         name (str): プレイヤーを表す名前(継承)
     """
 
+    def __init__(self, name, turn=None):
+        self.name = name
+        super().__init__(name)
+        self.turn = turn
+
     def select_move(self, mount):
         # まだ操作は未定．
         valid_indexs = [i for i, pile in enumerate(mount) if pile > 0]
         index = random.choice(valid_indexs)
         amount = random.randint(1, mount[index])
-        print(f"\n\n選んだ番号：{index}")
+        print(f"選んだ番号：{index}")
         print(f"山の量：{amount}")
         return index, amount
