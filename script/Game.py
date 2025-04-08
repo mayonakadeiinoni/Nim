@@ -1,9 +1,9 @@
-from Player import *
+from .Player import *
 
 
 class NimGame:
 
-    def __init__(self, mounts, player1, player2):
+    def __init__(self, mounts, player1=None, player2=None):
         self.mounts = mounts
         self.player1 = player1
         self.player2 = player2
@@ -23,11 +23,11 @@ class NimGame:
 
         if not (0 <= index <= len(self.mounts)):
             print("山の番号に入ってないです")
-            return True
+            return False
         elif not (0 < amount <= self.mounts[index]):
             print("該当の山の量を超えてます．")
-            return True
-        return False
+            return False
+        return True
 
     def Opening(self):
         print("########################GAMESTART####################")
@@ -43,7 +43,7 @@ class NimGame:
             print(f"プレイヤー：{current_player.name}\n")
             index, amount = current_player.select_move(self.mounts)
 
-            if self.MountAssert(index, amount):
+            if not self.MountAssert(index, amount):
                 continue
             self.mounts[index] -= amount
             self.MountDisplay()
