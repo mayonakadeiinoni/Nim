@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: nim-game
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: gunicorn script.app:app
+    plan: free
