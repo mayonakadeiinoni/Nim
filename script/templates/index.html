@@ -17,6 +17,13 @@
           const container = document.getElementById("mounts");
           container.innerHTML = "";
 
+          const h2 = document.createElement("h2");
+          const div = document.createElement("div");
+
+          h2.textContent = `今の手番：${data.turn === 0 ? "先行" : "後攻"}`;
+          div.appendChild(h2);
+          container.appendChild(div);
+
           data.mounts.forEach((count, index) => {
             const div = document.createElement("div");
             div.textContent = `山:${index} 残り:${count}`;
@@ -27,8 +34,40 @@
             "エラーが発生しました";
         }
       }
+      async function makeMove() {
+        const index = parseInt(document.getElementById("index").value);
+        const amount = parseInt(document.getElementById("amount").value);
+
+        const res = await fetch("/move", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ index, amount }),
+        });
+
+        const data = await res.json();
+
+        const msg = document.getElementById("message");
+        msg.textContent = data.message;
+
+        // 成功したら状態を更新
+        if (data.success) {
+          if (data.win) {
+            location.href = "/win";
+          } else {
+            fetchState(); // mount再表示
+          }
+        }
+      }
 
       fetchState();
     </script>
+    <!-- 入力部分-->
+    <h2>操作</h2>
+    <label>山の番号： <input type="number" id="index" min="0" /> </label><br />
+    <label>とる量： <input type="number" id="amount" min="1" /></label><br />
+    <button onclick="makeMove()">実行</button>
+
+    <p id="message"></p>
+    <!-- メッセージ表示用 -->
   </body>
 </html>

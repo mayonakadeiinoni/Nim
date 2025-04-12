@@ -1,3 +1,4 @@
+
 from .Player import *
 
 
@@ -55,9 +56,9 @@ class NimGame:
 
 
 def create_game():
-    player1 = HumanPlayer("人間")
-    player2 = ComputerPlayer("CP")
-    mounts = [5, 8, 4]
+    player1 = HumanPlayer("player1")
+    player2 = HumanPlayer("player2")
+    mounts = [0, 0, 1]
     Game = NimGame(mounts, player1, player2)
     return Game
 
@@ -65,6 +66,6 @@ def create_game():
 if __name__ == "__main__":
     player1 = HumanPlayer("人間")
     player2 = ComputerPlayer("CP")
-    mounts = [5, 8, 4]
+    mounts = [0, 0, 1]
     Game = NimGame(mounts, player1, player2)
     Game.Play()

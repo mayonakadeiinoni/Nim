@@ -37,6 +37,7 @@ https://magazine.techacademy.jp/magazine/30599
    - https://zenn.dev/keisukemiura/articles/format-source-code-automatically-in-vscode
  - HTML,CSSの様子を逐次的に確認するためにダミーデータを入れる方法
    - json-server
+ - location.href
 ##勉強したコマンド
 ### git
  #### reset系
