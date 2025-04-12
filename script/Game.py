@@ -54,6 +54,14 @@ class NimGame:
             turn %= 2
 
 
+def create_game():
+    player1 = HumanPlayer("人間")
+    player2 = ComputerPlayer("CP")
+    mounts = [5, 8, 4]
+    Game = NimGame(mounts, player1, player2)
+    return Game
+
+
 if __name__ == "__main__":
     player1 = HumanPlayer("人間")
     player2 = ComputerPlayer("CP")

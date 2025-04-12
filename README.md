@@ -26,6 +26,17 @@ https://magazine.techacademy.jp/magazine/30599
 - vim
    - git commitで長い解説を書くにはvimエディタを使う必要がある
  
+- flask 
+
+- javascript
+ - async,Promise,await,fetch
+   - https://qiita.com/msquare33/items/a8b51d6f4d6be770e7d6
+ - formatter=Prettiter
+   - https://zenn.dev/naonaorange/articles/20201031_vscode_javascript
+ - linter=ESLint
+   - https://zenn.dev/keisukemiura/articles/format-source-code-automatically-in-vscode
+ - HTML,CSSの様子を逐次的に確認するためにダミーデータを入れる方法
+   - json-server
 ##勉強したコマンド
 ### git
  #### reset系
