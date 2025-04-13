@@ -85,8 +85,8 @@ class NimFlask:
         self.app.run(debug=True, port=6008)
 
 
-if __name__ == "__main__":
-    NimServer = NimFlask()
+NimServer = NimFlask()
+app = NimServer.app
 
-    app = NimServer.app
+if __name__ == "__main__":
     NimServer.run()
