@@ -3,12 +3,14 @@ from .Game import create_game
 
 from flask import Flask, render_template, session
 from .Game import create_game
+import os
 
 
 class NimFlask:
     def __init__(self):
         self.app = Flask(__name__)
-        self.app.secret_key = "your-secret-key"  # 適当なランダム文字列
+        self.app.secret_key = os.environ.get(
+            "SECRET_KEY", "dev-key-if-missing")  # fallbackあり
     #    self.game = create_game()
 
         self.rounting()
@@ -80,7 +82,7 @@ class NimFlask:
             })
 
     def run(self):
-        self.app.run(debug=True, port=6062)
+        self.app.run(debug=True, port=6008)
 
 
 if __name__ == "__main__":
