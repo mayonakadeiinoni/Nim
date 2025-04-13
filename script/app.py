@@ -29,7 +29,7 @@ class NimFlask:
     def rounting(self):
 
         @self.app.route("/healthcheck")
-        def play():
+        def healthcheck():
 
             return "OK", 200
 
