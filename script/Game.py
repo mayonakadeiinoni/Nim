@@ -4,16 +4,17 @@ from .Player import *
 
 class NimGame:
 
-    def __init__(self, mounts, player1=None, player2=None):
+    def __init__(self, mounts, player1=None, player2=None, currentPlayerNum=None):
         self.mounts = mounts
         self.player1 = player1
         self.player2 = player2
-        self.currentPlayerNum = 0  # 0 Or1
+        self.currentPlayerNum = currentPlayerNum if currentPlayerNum else 0  # 0 Or1
 
     def isGameEnd(self):
         return self.GameWin()
 
     def GameWin(self):
+        print(f"self.mounts:{self.mounts}")
         return all(mount == 0 for mount in self.mounts)
 
     def MountDisplay(self):
@@ -55,11 +56,11 @@ class NimGame:
             turn %= 2
 
 
-def create_game():
+def create_game(mounts=None, currentPlayerNum=None):
     player1 = HumanPlayer("player1")
     player2 = HumanPlayer("player2")
-    mounts = [0, 0, 1]
-    Game = NimGame(mounts, player1, player2)
+    mounts = mounts if mounts else [5, 7, 9]
+    Game = NimGame(mounts, player1, player2, currentPlayerNum=currentPlayerNum)
     return Game
 
 

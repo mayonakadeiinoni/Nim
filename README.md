@@ -38,6 +38,11 @@ https://magazine.techacademy.jp/magazine/30599
  - HTML,CSSの様子を逐次的に確認するためにダミーデータを入れる方法
    - json-server
  - location.href
+
+- deploy
+ - Render https://dev.classmethod.jp/articles/github-render-deploy/
+- CI/CD
+
 ##勉強したコマンド
 ### git
  #### reset系
