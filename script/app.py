@@ -87,4 +87,6 @@ class NimFlask:
 
 if __name__ == "__main__":
     NimServer = NimFlask()
+
+    app = NimServer.app
     NimServer.run()
