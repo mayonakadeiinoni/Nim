@@ -34,3 +34,18 @@ jobs:
     steps:
       - name: Deploy to Render
         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+
+      - name: Wait for Render app to be healthy
+        run: |
+          for i in {1..25}; do
+            echo "Checking... attempt $i"
+            status=$(curl -s -o /dev/null -w "%{http_code}" "https://nim-kp9h.onrender.com/healthcheck")
+            if [ "$status" == "200" ]; then
+              echo "App is up!"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Timed out waiting for app"
+          exit 1
+

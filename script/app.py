@@ -27,6 +27,12 @@ class NimFlask:
         session["turn"] = game.currentPlayerNum
 
     def rounting(self):
+
+        @self.app.route("/healthcheck")
+        def play():
+
+            return "OK", 200
+
         @self.app.route("/")
         def play():
 
