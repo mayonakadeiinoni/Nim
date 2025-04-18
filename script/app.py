@@ -11,8 +11,7 @@ class NimFlask:
     def __init__(self):
         self.app = Flask(__name__)
         self.app.secret_key = os.environ.get(
-            "SECRET_KEY", "dev-key-if-missing")  # fallbackあり
-    #    self.game = create_game()
+            "SECRET_KEY", "dev-key-if-missing")
 
         self.rounting()
 
@@ -98,7 +97,7 @@ class NimFlask:
             })
 
     def run(self):
-        self.app.run(debug=True, port=6010)
+        self.app.run(debug=True, port=6011)
 
 
 NimServer = NimFlask()
