@@ -58,6 +58,16 @@
           }
         }
       }
+      async function resetGame() {
+        const res = await fetch("/reset", {
+          method: "POST",
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchState(); // mount再表示
+        }
+      }
 
       fetchState();
     </script>
@@ -66,6 +76,7 @@
     <label>山の番号： <input type="number" id="index" min="0" /> </label><br />
     <label>とる量： <input type="number" id="amount" min="1" /></label><br />
     <button onclick="makeMove()">実行</button>
+    <button onclick="resetGame()">リセット</button>
 
     <p id="message"></p>
     <!-- メッセージ表示用 -->

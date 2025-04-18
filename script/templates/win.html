@@ -10,6 +10,22 @@
       style="color: red; font-size: 3em; text-align: center; margin-top: 100px"
     >
       🎉 {{winner}}の勝ち！！！ 🎉
+      <!-- play.html内のボタン -->
+      <button onclick="resetGame()">リセット</button>
+      ゲームを初期化してやり直す
+
+      <script>
+        async function resetGame() {
+          const res = await fetch("/reset", {
+            method: "POST",
+          });
+          const data = await res.json();
+          if (data.success) {
+            alert(data.message);
+            location.href = "/";
+          }
+        }
+      </script>
     </h1>
   </body>
 </html>

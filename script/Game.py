@@ -59,7 +59,7 @@ class NimGame:
 def create_game(mounts=None, currentPlayerNum=None):
     player1 = HumanPlayer("player1")
     player2 = HumanPlayer("player2")
-    mounts = mounts if mounts else [5, 7, 9]
+    mounts = mounts if mounts else [0, 0, 1]
     Game = NimGame(mounts, player1, player2, currentPlayerNum=currentPlayerNum)
     return Game
 

@@ -1,9 +1,10 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 from .Game import create_game
 
 from flask import Flask, render_template, session
 from .Game import create_game
 import os
+from copy import deepcopy
 
 
 class NimFlask:
@@ -17,7 +18,10 @@ class NimFlask:
 
     def get_game(self):
         if not "mounts" in session:
-            return create_game()
+            game = create_game()
+            session["initial_mounts"] = deepcopy(game.mounts)
+            session["initial_turn"] = game.currentPlayerNum
+            return game
         else:
             return create_game(mounts=session.get("mounts", None),
                                currentPlayerNum=session.get("turn", None))
@@ -37,6 +41,11 @@ class NimFlask:
         def play():
 
             return render_template("index.html")
+
+        @self.app.route("/reset", methods=["POST"])
+        def reset_state():
+            session.clear()
+            return jsonify({"success": True, "message": "ゲーム再スタート"})
 
         @self.app.route("/get_state")
         def get_state():
@@ -58,9 +67,10 @@ class NimFlask:
             win = False
 
             # validation
+            print(f"index:{index}")
             if not (isinstance(index, int) and isinstance(index, int)):
                 return jsonify({"success": False, "message": "入力が正しくない"})
-            if not (0 <= index <= len(game.mounts)):
+            if not (0 <= index < len(game.mounts)):
                 return jsonify({"success": False, "message": "その山はありません"})
             if not (1 <= amount <= game.mounts[index]):
                 return jsonify({"success": False, "message": "その量はとれませんよ"})
@@ -88,7 +98,7 @@ class NimFlask:
             })
 
     def run(self):
-        self.app.run(debug=True, port=6008)
+        self.app.run(debug=True, port=6010)
 
 
 NimServer = NimFlask()
