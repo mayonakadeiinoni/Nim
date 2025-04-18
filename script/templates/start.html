@@ -1,0 +1,80 @@
+<form action="/start" method="POST">
+  <h2>対戦形式を選んでください</h2>
+  <label
+    ><input
+      type="radio"
+      name="mode"
+      value="pvp"
+      onchange="updateUI()"
+      checked
+    />
+    人 vs 人</label
+  ><br />
+  <label
+    ><input type="radio" name="mode" value="pvc" onchange="updateUI()" /> 人 vs
+    コンピュータ</label
+  ><br /><br />
+
+  <div id="name-section"></div>
+
+  <h2>先行/後攻をどう決めますか？</h2>
+  <label
+    ><input type="radio" name="first_mode" value="random" checked />
+    ランダム</label
+  ><br />
+  <label
+    ><input type="radio" name="first_mode" value="manual" />
+    自分たちで選ぶ</label
+  ><br />
+
+  <div id="first-selector" style="display: none">
+    <p>どちらが先手？</p>
+    <label
+      ><input type="radio" name="first" value="0" checked /> プレイヤー1</label
+    ><br />
+    <label><input type="radio" name="first" value="1" /> プレイヤー2</label
+    ><br />
+  </div>
+
+  <br />
+  <button type="submit">ゲームスタート</button>
+</form>
+
+<script>
+  // 対戦形式によって、名前欄を切り替える
+  function updateUI() {
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    const nameSection = document.getElementById("name-section");
+
+    if (mode === "pvp") {
+      nameSection.innerHTML = `
+          <p>プレイヤー1の名前: <input type="text" name="name1" required></p>
+          <p>プレイヤー2の名前: <input type="text" name="name2" required></p>
+        `;
+    } else {
+      nameSection.innerHTML = `
+          <p>あなたの名前: <input type="text" name="name1" required></p>
+        `;
+    }
+  }
+
+  // 先行の決め方を選んだとき、選択肢の表示を切り替える
+  function toggleFirstSelector() {
+    const mode = document.querySelector(
+      'input[name="first_mode"]:checked'
+    ).value;
+    const selector = document.getElementById("first-selector");
+    selector.style.display = mode === "manual" ? "block" : "none";
+  }
+
+  // イベントをバインドして、切り替えを反映する
+  document.querySelectorAll('input[name="first_mode"]').forEach((el) => {
+    el.addEventListener("change", toggleFirstSelector);
+  });
+
+  // ページ読み込み時に状態を初期化
+  window.onload = () => {
+    updateUI();
+    toggleFirstSelector();
+  };
+</script>

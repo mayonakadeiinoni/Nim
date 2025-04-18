@@ -9,6 +9,17 @@ class NimGame:
         self.player1 = player1
         self.player2 = player2
         self.currentPlayerNum = currentPlayerNum if currentPlayerNum else 0  # 0 Or1
+        self.player_type_list = self.get_player_type()
+
+    def get_player_type(self):
+        player_type_pair = []
+        for player in [self.player1, self.player2]:
+            if isinstance(player, HumanPlayer):
+                player_type_pair.append("Human")
+            elif isinstance(player, ComputerPlayer):
+                player_type_pair.append("CP")
+
+        return player_type_pair
 
     def isGameEnd(self):
         return self.GameWin()
@@ -56,10 +67,14 @@ class NimGame:
             turn %= 2
 
 
-def create_game(mounts=None, currentPlayerNum=None):
-    player1 = HumanPlayer("player1")
-    player2 = HumanPlayer("player2")
-    mounts = mounts if mounts else [0, 0, 1]
+def create_game(mounts=None, currentPlayerNum=None, player_type=None, player_names=None):
+
+    player1 = HumanPlayer(
+        player_names[0]) if player_type[0] == "Human" else ComputerPlayer()
+    player2 = HumanPlayer(
+        player_names[1]) if player_type[1] == "Human" else ComputerPlayer()
+
+    mounts = mounts if mounts else [5, 1, 1]
     Game = NimGame(mounts, player1, player2, currentPlayerNum=currentPlayerNum)
     return Game
 

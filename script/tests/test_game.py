@@ -20,6 +20,22 @@ def test_gamewin():
         assert game.GameWin() == correct
 
 
+def test_get_player_type():
+    player_pairs = [[HumanPlayer("player1"), HumanPlayer("player1")],
+                    [ComputerPlayer("player1"), HumanPlayer("player1")],
+                    [HumanPlayer("player1"), ComputerPlayer("player1")],
+                    [ComputerPlayer("player1"), ComputerPlayer("player1")]]
+    corrects = [["Human", "Human"],
+                ["CP", "Human"],
+                ["Human", "CP"],
+                ["CP", "CP"],
+                ]
+    for player_pair, correct in zip(player_pairs, corrects):
+        player_type_pair = NimGame([0, 0, 5], player_pair[0], player_pair[1],
+                                   currentPlayerNum=0).get_player_type()
+        assert player_type_pair == correct
+
+
 def test_MountAssert():
     game = NimGame([1, 5, 4])
     indexs = [-1, 0, 1, 2, 8, 2]

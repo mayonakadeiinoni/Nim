@@ -62,8 +62,8 @@ class ComputerPlayer(Player):
         name (str): プレイヤーを表す名前(継承)
     """
 
-    def __init__(self, name, turn=None):
-        self.name = name
+    def __init__(self, name="CP", turn=None):
+        self.name = "CP"
         super().__init__(name)
         self.turn = turn
 
