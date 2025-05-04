@@ -114,9 +114,11 @@ class NimFlask:
             game = self.get_game()
             win = False
             if data.get("now_player_type") == "CP":
+                print("CP")
                 player = game.player1 if game.currentPlayerNum == 0 else game.player2
                 index, amount = player.select_move(game.mounts)
             elif data.get("now_player_type") == "Human":
+                print("Human")
                 index = data.get("index")
                 amount = data.get("amount")
             else:
@@ -136,11 +138,13 @@ class NimFlask:
             print(game.currentPlayerNum)
             game.currentPlayerNum ^= 1
 
+            win = game.GameWin()
+
             print(game.mounts)  # success
             print(game.currentPlayerNum)
             self.save_game(game)
             ##
-            if game.GameWin():
+            if win:
                 print(55)
                 win = True
                 print(f"win:{win}")
@@ -153,7 +157,7 @@ class NimFlask:
                     "win": win
                 })
             else:
-                game.currentPlayerNum ^= 1
+
                 print(f"win:{win}")
 
                 return jsonify({
@@ -165,7 +169,7 @@ class NimFlask:
                 })
 
     def run(self):
-        self.app.run(debug=True, port=6040)
+        self.app.run(debug=True, port=6050)
 
 
 NimServer = NimFlask()

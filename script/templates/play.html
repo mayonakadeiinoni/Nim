@@ -28,7 +28,8 @@
             if (data.win) {
               location.href = "/win";
             } else {
-              fetchState();
+              await fetchState(); // ① 人が打った結果を描画
+              await wait(3000); // ② 描画後に1秒待つ
             }
           }
 
@@ -38,16 +39,18 @@
             const parsed = playerType;
             const cpIndex = data.turn;
             if (parsed === "CP") {
+              toggleInput(false);
+              await wait(1000); // ④ CPの描画後にまた少し待つ
               const div = document.createElement("div");
               div.textContent = `CPの初手番です…少し待って打ちます`;
+              const container = document.getElementById("mounts");
+              container.innerHTML = "";
               container.appendChild(div);
-              toggleInput(false);
 
               sessionStorage.setItem("cp_initialized", "true");
 
-              setTimeout(() => {
-                Move.CPMove(data.now_player_type); // 自動実行
-              }, 1000);
+              await Move.CPMove(data.now_player_type); // ③ CPが打つ（CPMoveの中でまたfetchStateが呼ばれる）
+              await wait(3000); // ④ CPの描画後にまた少し待つ
               return; // ここで抜けて、二重にtoggleしないように
             }
           }
@@ -70,7 +73,8 @@
             if (data.win) {
               location.href = "/win";
             } else {
-              fetchState();
+              await fetchState(); // CPが打ったあとの描画
+              await wait(1000); // ④ CPの描画後にまた少し待つ
             }
           }
         }
@@ -104,6 +108,7 @@
 
           const playerType = data.now_player_type;
           const alreadyStarted = sessionStorage.getItem("cp_initialized");
+          console.log(alreadyStarted);
 
           if (playerType && !alreadyStarted) {
             const parsed = playerType;
@@ -129,6 +134,10 @@
             "エラーが発生しました";
         }
       }
+      function wait(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
       function toggleInput(enable) {
         document.getElementById("index").disabled = !enable;
         document.getElementById("amount").disabled = !enable;
@@ -141,6 +150,7 @@
           method: "POST",
         });
         const data = await res.json();
+        sessionStorage.removeItem("cp_initialized");
         if (data.success) {
           alert(data.message);
           fetchState(); // mount再表示
