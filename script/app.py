@@ -17,20 +17,25 @@ class NimFlask:
 
     def get_game(self):
         if not "mounts" in session:
+            print("HOJ")
             game = create_game(player_type=session["player_type_turn"],
                                player_names=session["player_names"])
             session["initial_mounts"] = deepcopy(game.mounts)
             session["initial_turn"] = game.currentPlayerNum
+            session["mounts"] = session["initial_mounts"]
+            session["turn"] = session["initial_turn"]
             session["player_type_turn"] = game.get_player_type()
             return game
         else:
+            a = session.get("mounts", None)
+            print(f"session.get(mounts, None):{a}")
             return create_game(mounts=session.get("mounts", None),
                                currentPlayerNum=session.get("turn", None),
                                player_type=session["player_type_turn"],
                                player_names=session["player_names"])
 
     def save_game(self, game):
-        session["mounts"] = game.mounts
+        session["mounts"] = deepcopy(game.mounts)
         session["turn"] = game.currentPlayerNum
 
     def rounting(self):
@@ -42,6 +47,13 @@ class NimFlask:
 
         @self.app.route("/")
         def init():
+
+            session.clear()
+
+            return render_template("rule.html")
+
+        @self.app.route("/rule", methods=["POST"])
+        def rule():
 
             return render_template("start.html")
 
@@ -89,7 +101,8 @@ class NimFlask:
 
         @self.app.route("/reset", methods=["POST"])
         def reset_state():
-            keep_keys = {"player_names", "player_type_turn"}
+         #   session["initial_mounts"]
+            keep_keys = {"player_names", "player_type_turn", }
             for key in list(session.keys()):
                 if key not in keep_keys:
                     session.pop(key)
@@ -151,7 +164,7 @@ class NimFlask:
             })
 
     def run(self):
-        self.app.run(debug=True, port=6228)
+        self.app.run(debug=True, port=6274)
 
 
 NimServer = NimFlask()

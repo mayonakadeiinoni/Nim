@@ -74,7 +74,11 @@ def create_game(mounts=None, currentPlayerNum=None, player_type=None, player_nam
     player2 = HumanPlayer(
         player_names[1]) if player_type[1] == "Human" else ComputerPlayer()
 
-    mounts = mounts if mounts else [5, 1, 1]
+    import random
+    mounts = mounts if mounts else [random.randint(
+        5, 10) for _ in range(random.randint(3, 6))]
+    print(mounts)
+
     Game = NimGame(mounts, player1, player2, currentPlayerNum=currentPlayerNum)
     return Game
 

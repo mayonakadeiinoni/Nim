@@ -12,6 +12,9 @@
         font-size: 1.5rem;
         color: #0dcaf0;
       }
+      .alert.alert-info.text-center {
+        font-size: 3.5rem;
+      }
     </style>
   </head>
   <body class="bg-light">
@@ -28,6 +31,10 @@
 
       <!-- 入力フォーム -->
       <div class="card mb-4 shadow-sm">
+        <!-- メッセージ欄 -->
+        <div id="message" class="alert alert-info text-center" role="alert">
+          メッセージがここに表示されます。
+        </div>
         <div class="card-header bg-success text-white">操作パネル</div>
         <div class="card-body">
           <form>
@@ -46,7 +53,7 @@
                 onclick="Move.HumanMove()"
                 id="move_button"
               >
-                手を出す！
+                ダイヤをとります
               </button>
               <button
                 type="button"
@@ -59,11 +66,6 @@
             </div>
           </form>
         </div>
-      </div>
-
-      <!-- メッセージ欄 -->
-      <div id="message" class="alert alert-info text-center" role="alert">
-        メッセージがここに表示されます。
       </div>
     </div>
 
