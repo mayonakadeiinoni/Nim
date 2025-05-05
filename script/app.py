@@ -105,28 +105,28 @@ class NimFlask:
         @self.app.route("/win")
         def win():
             game = self.get_game()
-            winner = f"先行:{session['player_names'][game.currentPlayerNum]}" if game.currentPlayerNum == 0 else f"後攻:{session['player_names'][game.currentPlayerNum]}"
+            winner = f"先行:{session['player_names'][game.currentPlayerNum]}" if game.currentPlayerNum == 1 else f"後攻:{session['player_names'][game.currentPlayerNum]}"
             return render_template("win.html", winner=winner)
 
         @self.app.route("/move", methods=["POST"])
         def move():
-            data = request.get_json()
             game = self.get_game()
             win = False
-            if data.get("now_player_type") == "CP":
-                print("CP")
-                player = game.player1 if game.currentPlayerNum == 0 else game.player2
+            now_player_num = game.currentPlayerNum
+            now_player_type = game.player_type_list[now_player_num]
+
+            # 入力値取得
+            if now_player_type == "CP":
+                player = game.player1 if now_player_num == 0 else game.player2
                 index, amount = player.select_move(game.mounts)
-            elif data.get("now_player_type") == "Human":
-                print("Human")
+            else:
+                data = request.get_json()
                 index = data.get("index")
                 amount = data.get("amount")
-            else:
-                raise ValueError("変な値")
-
-            # validation
             print(f"index:{index}")
-            if not (isinstance(index, int) and isinstance(index, int)):
+            print(f"amoutn:{amount}")
+            # バリデーション
+            if not (isinstance(index, int) and isinstance(amount, int)):
                 return jsonify({"success": False, "message": "入力が正しくない"})
             if not (0 <= index < len(game.mounts)):
                 return jsonify({"success": False, "message": "その山はありません"})
@@ -135,41 +135,23 @@ class NimFlask:
 
             # 状態更新
             game.mounts[index] -= amount
-            print(game.currentPlayerNum)
-            game.currentPlayerNum ^= 1
-
             win = game.GameWin()
+            if not win:
+                game.currentPlayerNum ^= 1
 
-            print(game.mounts)  # success
-            print(game.currentPlayerNum)
             self.save_game(game)
-            ##
-            if win:
-                print(55)
-                win = True
-                print(f"win:{win}")
 
-                return jsonify({
-                    "success": True,
-                    "mounts": game.mounts,
-                    "now_player_type": game.player_type_list[game.currentPlayerNum],
-                    "message": f"山{index}から{amount}とりました",
-                    "win": win
-                })
-            else:
-
-                print(f"win:{win}")
-
-                return jsonify({
-                    "success": True,
-                    "mounts": game.mounts,
-                    "now_player_type": game.player_type_list[game.currentPlayerNum],
-                    "message": f"山{index}から{amount}とりました",
-                    "win": win
-                })
+            return jsonify({
+                "success": True,
+                "mounts": game.mounts,
+                "now_player_type": game.player_type_list[game.currentPlayerNum],
+                "message": f"山{index}から{amount}とりました",
+                "win": win,
+                "turn": game.currentPlayerNum
+            })
 
     def run(self):
-        self.app.run(debug=True, port=6050)
+        self.app.run(debug=True, port=6225)
 
 
 NimServer = NimFlask()

@@ -21,6 +21,7 @@
           });
           const data = await res.json();
           if (data.success) {
+            sessionStorage.removeItem("cp_initialized");
             alert(data.message);
             location.href = "/";
           }
