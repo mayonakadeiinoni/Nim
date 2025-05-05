@@ -151,7 +151,7 @@ class NimFlask:
             })
 
     def run(self):
-        self.app.run(debug=True, port=6225)
+        self.app.run(debug=True, port=6228)
 
 
 NimServer = NimFlask()
